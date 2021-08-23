@@ -51,24 +51,33 @@ class Array
         return true
     end
 
+    def my_flatten
+        flattened = []
+        
+    end
+
+    def my_zip(*args)
+        i = 0
+        result = []
+
+        while i < self.length #=> 1
+            subs = [self[i]]
+            j = 0
+            while j < args.length #=> 1
+                subs << args[j][i]
+                j += 1
+            end
+            result << subs
+            i += 1
+        end
+        result
+    end
+
 
 end
 
-# a = [1, 2, 3]
-# p a.my_any? { |num| num > 1 } # => true
-# p a.my_any? { |num| num == 4 } # => false
-# p a.my_all? { |num| num > 1 } # => false
-# p a.my_all? { |num| num < 4 } # => true
-
-
-
-#my_reject
-# a = [1, 2, 3]
-# p a.my_reject { |num| num > 1 } # => [1]
-# p a.my_reject { |num| num == 4 } # => [1, 2, 3]
-
-#my_select
-# a = [1, 2, 3]
-# p a.my_select { |num| num > 1 } # => [2, 3]
-# p a.my_select { |num| num == 4 } # => []
+a = [ 4, 5, 6 ]
+b = [ 7, 8, 9 ]
+# p [1, 2, 3].my_zip(a, b) # => [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+p a.my_zip([1,2], [8])   # => [[4, 1, 8], [5, 2, nil], [6, nil, nil]]
 
