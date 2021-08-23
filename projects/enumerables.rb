@@ -64,7 +64,12 @@ class Array
             subs = [self[i]]
             j = 0
             while j < args.length #=> 1
-                subs << args[j][i]
+                begin
+                    subs << args[j][i]
+                rescue
+                    subs << nil
+                    p 'flag 1'
+                end
                 j += 1
             end
             result << subs
@@ -74,10 +79,32 @@ class Array
     end
 
 
+    def my_rotate(n=1)
+        new_array = self.dup
+        if n > 0 
+            n.times do 
+                ele = new_array.shift
+                new_array << ele
+                # new_array.unshift(ele)
+            end
+        elsif n < 0
+            (-n).times do
+                ele = new_array.pop
+                new_array.unshift(ele)
+            end
+
+        else
+            return new_array
+        end
+        new_array
+    end
+
+
+
 end
 
-a = [ 4, 5, 6 ]
-b = [ 7, 8, 9 ]
-# p [1, 2, 3].my_zip(a, b) # => [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
-p a.my_zip([1,2], [8])   # => [[4, 1, 8], [5, 2, nil], [6, nil, nil]]
-
+a = [ "a", "b", "c", "d" ]
+p a.my_rotate         #=> ["b", "c", "d", "a"]
+p a.my_rotate(2)      #=> ["c", "d", "a", "b"]
+p a.my_rotate(-3)     #=> ["b", "c", "d", "a"]
+p a.my_rotate(15)     #=> ["d", "a", "b", "c"]
