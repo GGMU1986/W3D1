@@ -52,10 +52,18 @@ class Array
     end
 
     def my_flatten
-        flattened = []
-        
-    end
 
+        flattened = []
+        self.my_each do |ele|
+            if ele.is_a?(Array)
+                flattened += ele.my_flatten
+            else
+                flattened += [ele]
+            end
+        end
+        flattened
+    end
+ 
     def my_zip(*args)
         i = 0
         result = []
@@ -109,9 +117,25 @@ class Array
         new_str
     end
 
+    # def my_reverse
+    #     new_array = self.dup
+    #     output_array = []
+    #     (self.length).times do 
+    #         ele = new_array.shift
+    #         output_array.unshift(ele)
+    #     end
+    #     output_array
+    # end
+    def my_reverse
+        output_array = []
+        self.my_each do |ele|
+            output_array.unshift(ele)
+        end
+        output_array
+    end
+
+
+
 end
 
-a = [ "a", "b", "c", "d" ]
-p a.my_join         # => "abcd"
-p a.my_join("$")    # => "a$b$c$d"
-
+p [1, 2, 3, [4, [5, 6]], [[[7]], 8]].my_flatten # => [1, 2, 3, 4, 5, 6, 7, 8]
