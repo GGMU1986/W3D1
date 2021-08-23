@@ -99,12 +99,19 @@ class Array
         new_array
     end
 
-
+    def my_join(separator = "")
+        new_str = ""
+        
+        self.my_each do |ele|
+            new_str += ele + separator
+        end
+        return new_str[0...-1] unless separator == ""
+        new_str
+    end
 
 end
 
 a = [ "a", "b", "c", "d" ]
-p a.my_rotate         #=> ["b", "c", "d", "a"]
-p a.my_rotate(2)      #=> ["c", "d", "a", "b"]
-p a.my_rotate(-3)     #=> ["b", "c", "d", "a"]
-p a.my_rotate(15)     #=> ["d", "a", "b", "c"]
+p a.my_join         # => "abcd"
+p a.my_join("$")    # => "a$b$c$d"
+
